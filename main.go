@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"my_algo/algo/leetcode"
-	tree "my_algo/ds/binary_tree"
 )
 
 func main() {
@@ -52,9 +51,23 @@ func main() {
 	// tree.PreOrder(root)
 
 	// **** leetcode BTree ****/
-	var root *tree.TreeNode
+	//var root *tree.TreeNode
 	//initArray := []int{5, 5, -1, -1, 3, 2, -1, -1, 2, -1, -1}
-	initArray := []int{5, 4, 11, 7, -1, -1, 2, -1, -1, -1, 8, 13, -1, -1, 4, 5, -1, -1, 1, -1, -1}
-	tree.CreataBTtreeByArray(&root, initArray)
-	fmt.Println(leetcode.PathSum(root, 22))
+	//tree.CreataBTtreeByArray(&root, initArray)
+	//fmt.Println(leetcode.FindBottomLeftValue(root))
+	// preOrder, inOrder := []int{1, 2}, []int{1, 2}
+	// root := leetcode.BuildTree(preOrder, inOrder)
+	// tree.PreOrder(root)
+
+	// **** leetcode 48 ****/
+	// matrix := [][]int{{5, 1, 9, 11}, {2, 4, 8, 10}, {13, 3, 6, 7}, {15, 14, 12, 16}}
+	// leetcode.Rotate90Degree(matrix)
+	// for _, v := range matrix {
+	// 	fmt.Println(v)
+	// }
+
+	nums := []int{1, 2, 5}
+	idx := leetcode.CoinChange(nums, 11)
+	fmt.Println(idx)
+
 }
