@@ -8,7 +8,7 @@ type ListNode struct {
 }
 
 // List represents double linked list
-// head node is not real head node, it just a dummy node
+// head node is not real head node, it's just a dummy node
 type List struct {
 	head, tail *ListNode
 	len        int

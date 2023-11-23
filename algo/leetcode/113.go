@@ -2,26 +2,27 @@ package leetcode
 
 import tree "my_algo/ds/binary_tree"
 
-var targetSumpaths [][]int
-var targetSumpath []int
-
 func PathSum(root *tree.TreeNode, targetSum int) [][]int {
-	targetSumpaths = make([][]int, 0)
-	targetSumpath = make([]int, 0)
-	targetPathSumTraverse(root, targetSum)
-	return targetSumpaths
-}
+	res := make([][]int, 0)
+	trackArr := make([]int, 0)
 
-func targetPathSumTraverse(root *tree.TreeNode, targetSum int) {
-	if root == nil {
-		return
+	var backtrack func(*tree.TreeNode, int)
+	backtrack = func(root *tree.TreeNode, targetSum int) {
+		if root == nil {
+			return
+		}
+
+		trackArr = append(trackArr, root.Val)
+		if root.Left == nil && root.Right == nil && root.Val == targetSum {
+			res = append(res, append([]int{}, trackArr...))
+		}
+
+		backtrack(root.Left, targetSum-root.Val)
+		backtrack(root.Right, targetSum-root.Val)
+
+		trackArr = trackArr[:len(trackArr)-1]
 	}
 
-	targetSumpath = append(targetSumpath, root.Val)
-	if root.Left == nil && root.Right == nil && root.Val == targetSum {
-		targetSumpaths = append(targetSumpaths, append([]int{}, targetSumpath...))
-	}
-	targetPathSumTraverse(root.Left, targetSum-root.Val)
-	targetPathSumTraverse(root.Right, targetSum-root.Val)
-	targetSumpath = targetSumpath[:len(targetSumpath)-1]
+	backtrack(root, targetSum)
+	return res
 }

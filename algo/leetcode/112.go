@@ -12,16 +12,36 @@ package leetcode
 import tree "my_algo/ds/binary_tree"
 
 func HasPathSum(root *tree.TreeNode, targetSum int) bool {
+	flg := false
+	sum := 0
+	order(root, targetSum, &sum, &flg)
+	return flg
+}
+
+func order(root *tree.TreeNode, targetSum int, sum *int, flg *bool) {
+	if root == nil {
+		return
+	}
+
+	*sum += root.Val
+	if root.Left == nil && root.Right == nil && *sum == targetSum {
+		*flg = true
+		return
+	}
+
+	order(root.Left, targetSum, sum, flg)
+	order(root.Right, targetSum, sum, flg)
+	*sum -= root.Val
+}
+
+func HasPathSumV2(root *tree.TreeNode, targetSum int) bool {
 	if root == nil {
 		return false
 	}
-
 	if root.Left == nil && root.Right == nil && root.Val == targetSum {
 		return true
 	}
 
-	left := HasPathSum(root.Left, targetSum-root.Val)
-	right := HasPathSum(root.Right, targetSum-root.Val)
-
-	return left || right
+	return HasPathSum(root.Left, targetSum-root.Val) ||
+		HasPathSum(root.Right, targetSum-root.Val)
 }
