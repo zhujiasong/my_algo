@@ -72,7 +72,7 @@ func PreOrder(root *TreeNode) {
 	fmt.Printf("\n")
 }
 
-func MidOrder(root *TreeNode) {
+func InOrder(root *TreeNode) {
 	if root == nil {
 		return
 	}

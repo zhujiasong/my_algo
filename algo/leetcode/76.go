@@ -6,11 +6,10 @@ Hard
 Companies
 Given two strings s and t of lengths m and n respectively, return the minimum window
 substring
- of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
+
+	of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
 
 The testcases will be generated such that the answer is unique.
-
-
 
 Example 1:
 
@@ -23,17 +22,22 @@ package leetcode
 import "math"
 
 func MinWindow(s string, t string) string {
-	var ret string
-	var min = math.MaxInt
-	var vaild int
-	windowT := make(map[byte]int, len(t))
-	for _, b := range t {
-		windowT[byte(b)]++
+	ls, lt := len(s), len(t)
+	if ls < lt {
+		return ""
 	}
 
-	windowS := make(map[byte]int, len(t))
+	windowS := make(map[byte]int, ls)
+	windowT := make(map[byte]int, lt)
+	vaild := 0
 	left, right := 0, 0
-	for right < len(s) {
+	start, distance := 0, math.MaxInt
+
+	for i := range t {
+		windowT[t[i]]++
+	}
+
+	for right < ls {
 		c := s[right]
 		right++
 		if _, ok := windowT[c]; ok {
@@ -47,24 +51,24 @@ func MinWindow(s string, t string) string {
 			if vaild != len(windowT) {
 				break
 			}
-			if right-left < min {
-				min = right - left
-				ret = s[left:right]
-			}
 
 			d := s[left]
-			left++
 			if _, ok := windowT[d]; ok {
 				if windowS[d] == windowT[d] {
+					if right-left < distance {
+						start = left
+						distance = right - left
+					}
 					vaild--
 				}
 				windowS[d]--
 			}
-			if left < len(s) && windowS[s[left]] < windowT[s[left]] {
-				break
-			}
+			left++
 		}
 	}
 
-	return ret
+	if distance == math.MaxInt {
+		return ""
+	}
+	return s[start : start+distance]
 }
