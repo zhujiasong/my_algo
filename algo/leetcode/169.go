@@ -32,17 +32,17 @@ Follow-up: Could you solve the problem in linear time and in O(1) space?
 package leetcode
 
 func MajorityElement(nums []int) int {
-	var target, cnt int
+	var candidate, cnt int
 	for _, num := range nums {
 		if cnt == 0 {
-			target = num
+			candidate = num
 		}
-		if num == target {
+		if num == candidate {
 			cnt++
 		} else {
 			cnt--
 		}
 	}
 
-	return target
+	return candidate
 }

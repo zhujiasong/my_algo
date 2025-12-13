@@ -2,15 +2,10 @@ package main
 
 import (
 	"fmt"
-	"sort"
+	"my_algo/algo/leetcode"
 )
 
 func main() {
-
-	keys := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
-	index := sort.Search(len(keys), func(i int) bool {
-		return keys[i] >= 4
-	})
-
-	fmt.Println(index)
+	ret := leetcode.Subsets([]int{1, 2, 3})
+	fmt.Println(ret)
 }
